@@ -69,7 +69,7 @@ import schedule
 import time
 API_KEY ='5758248073:AAHhRY67sCd7wDIbwTtJo6YMRNQFQfiE9dU'
 bot = telebot.TeleBot(API_KEY)
-channel = "@DailyBibleVerse0"
+channel = "@natjob"
 print(num)
 print(input)
 def post():
@@ -100,8 +100,4 @@ def post():
     bot.send_photo(channel, image, caption=text +"\n   "+srs+'\n\U0001f31a | @DailyBibleVerse0') 
 
     
-schedule.every(10).seconds.do(post)
-while True:
- 
-    schedule.run_pending()
-    time.sleep(1)
+post();
