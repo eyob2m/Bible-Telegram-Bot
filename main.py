@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import random
 import collections
+import schedule
 
 full_url = [
 "01_salvation.htm"
