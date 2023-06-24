@@ -203,4 +203,7 @@ def post():
     
 
 schedule.every(10).seconds.do(post)
-
+while True:
+ 
+    schedule.run_pending()
+    time.sleep(1)
