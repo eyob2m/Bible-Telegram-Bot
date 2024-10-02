@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "start": "nodemon bot"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "canvas": "^2.11.2",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "html-to-image": "^1.11.11",
+    "later": "^1.2.0",
+    "node-html-to-image": "^5.0.0",
+    "nodemon": "^3.1.7",
+    "telegraf": "^4.16.3"
+  }
+}
