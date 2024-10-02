@@ -13,6 +13,7 @@
     "later": "^1.2.0",
     "node-html-to-image": "^5.0.0",
     "nodemon": "^3.1.7",
+    "puppeteer": "^23.5.0",
     "telegraf": "^4.16.3"
   }
 }
