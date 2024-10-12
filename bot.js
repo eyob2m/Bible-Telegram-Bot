@@ -7,7 +7,7 @@ const { default: axios } = require('axios')
 const fs = require('fs')
 require('dotenv').config()
 const bot = new Telegraf("5758248073:AAHhRY67sCd7wDIbwTtJo6YMRNQFQfiE9dU", )
-const runn = later.parse.recur().every(10).second()
+const runn = later.parse.recur().on(1).hour().on(30).minute();
 const app = express()
 app.get('/',(req,res)=>{ res.send("Bot is running")})
 app.listen(3000)
@@ -68,26 +68,33 @@ bot.start(ctx=>ctx.reply("hello"))
         const $ = cheerio.load(data)
     
         const verse_index = Math.floor(Math.random() * $('ul').filter('#maintab').children().length + 1);
-        let about = "@DawnLetters"
+        let about = "@DailyBibleEt"
         versesArray = []
         $('ul').filter('#maintab').children().each((index, element) => {
-          $(element).find('a').attr('style', 'color: rgba(172, 163, 255, 1); font-size: 24px;')
+          $(element).find('a').attr('style', 'color: white; font-size: 40px;')
     
           versesArray.push($(element).html())
         })
-        let verse = versesArray[verse_index]
+        let verse = await versesArray[verse_index]
+        
         let post = true
-        let verse_length  = verse.split(' ').length
+        
         if (verse===undefined){
                 post = false
         }
-        else if(verse_length>70){
+        else if(verse.split(' ').length>60){
+         
           post = false
-          bot.telegram.sendMessage("@awaqiquiz",  v.text()+"\n@otBible")
+          const v = await cheerio.load(verse)
+          bot.telegram.sendMessage("@dailybibleet",  v.text()+"\n@otBible")
     
+        } 
+        let r = pages[page_index].match(/\w*_(\w+).htm/)
+        if(r=="sex"){
+          r = "love"
         }
         !post ? null:  nodeHtmlToImage({
-     
+         
           output: './image.png',
           html: `  <html>
           <head>
@@ -98,24 +105,29 @@ bot.start(ctx=>ctx.reply("hello"))
               }
             </style>
           </head>
-          <body style="position: relative; font-family: 'Noto Sans Ethiopic', sans-serif;">
-            <div style="color: rgb(105, 127, 179); font-size: 20px; position: absolute; bottom: 20px; right: 20px;">
+          <body style=" position: relative; font-family: 'Noto Sans Ethiopic', sans-serif; background: rgb(0, 0, 30);">
+            <div style="color: rgba(172, 163, 255, 1);  font-size: 30px; position: absolute; bottom: 40px; right: 40px;">
               ${about}
             </div>
-            <div style="color: rgba(172, 163, 255, 1); font-size: 1200px; position: absolute; top: -330px; left: -260px; opacity: .08">
-              ✝️
+             <div style="color: rgba(172, 163, 255, 1);  font-size: 30px; position: absolute; bottom: 40px; left: 40px;">
+              #${r[1]}
             </div>
-            <div style="font-size: 35px; height: 100%; color: rgb(210, 221, 247); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px; background: rgba(0, 2, 37, 1);">
-              ${verse}
+            
+            <div style="font-size: 50px; height: 100%; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px; background: rgb(0, 0, 30);">
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;${verse}</p>
             </div>
           </body>
         </html>`,
-    
+        puppeteerArgs: {
+          defaultViewport: {
+            width: 1000,  
+            height: 1000  
+          }
+        }
         })
-          .then(() => {console.log('The image was created successfully!');
-          const v = cheerio.load(verse)
-
-          bot.telegram.sendPhoto("@awaqiquiz", {source: "./image.png"}, {caption: v.text()+"\n@otBible"})})
+          .then(async() => {console.log('The image was created successfully!');
+            const v = await cheerio.load(verse)
+          bot.telegram.sendPhoto("@dailybibleet", {source: "./image.png"}, {caption: "`"+v.text()+"`\n\\#"+`${r[1]}\n`+"@dailybibleet", parse_mode: "MarkdownV2"})})
        
       })()
 
