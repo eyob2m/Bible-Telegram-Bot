@@ -77,6 +77,7 @@ bot.start(ctx=>ctx.reply("hello"))
         })
         let verse = versesArray[verse_index]
         let post = true
+        let verse_length  = verse.split(' ').length
         if (verse===undefined){
                 post = false
         }
