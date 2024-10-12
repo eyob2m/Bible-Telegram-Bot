@@ -81,7 +81,7 @@ bot.start(ctx=>ctx.reply("hello"))
        verse===undefined ? null:  nodeHtmlToImage({
     
           output: './image.png',
-          html: `<body style="position: relative; ">
+          html: `<body style="position: relative; font-family: sans-serif;">
           <div style=" color: rgba(172, 163, 255, 1); font-size: 20px; position: absolute; bottom: 20px; right: 20px;">
           ${about}</div>
           <div  style="font-size: 35px; height: 100%; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center;  padding: 30px; background: rgba(0, 2, 37, 1)">
