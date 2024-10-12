@@ -7,7 +7,7 @@ const { default: axios } = require('axios')
 const fs = require('fs')
 require('dotenv').config()
 const bot = new Telegraf("5758248073:AAHhRY67sCd7wDIbwTtJo6YMRNQFQfiE9dU", )
-const runn = later.parse.recur().every(10).second()
+const runn = later.parse.recur().every(10000).second()
 const app = express()
 app.get('/',(req,res)=>{ res.send("Bot is running")})
 app.listen(3000)
@@ -54,11 +54,8 @@ const pages = [
   , "40_simplicity.htm"
 
 ]
-bot.start(ctx=>ctx.reply("hello"))
-  later.setInterval(()=>{
-    (
-      
-      async () => {
+
+const st = async () => {
         const page_index = Math.floor(Math.random() * pages.length + 1);
 
 
@@ -68,27 +65,26 @@ bot.start(ctx=>ctx.reply("hello"))
         const $ = cheerio.load(data)
     
         const verse_index = Math.floor(Math.random() * $('ul').filter('#maintab').children().length + 1);
-        let about = "@DawnLetters"
+        let about = "@otBible"
         versesArray = []
         $('ul').filter('#maintab').children().each((index, element) => {
-          $(element).find('a').attr('style', 'color: rgba(172, 163, 255, 1); font-size: 24px;')
+          $(element).find('a').attr('style', 'color: rgb(105, 127, 179); font-size: 24px;')
     
           versesArray.push($(element).html())
         })
         let verse = versesArray[verse_index]
-        let post = true
-        if (verse===undefined){
-                post = false
-        }
-        else if(verse_length>70){
-          post = false
-          bot.telegram.sendMessage("@awaqiquiz",  v.text()+"\n@otBible")
+        console.log(verse)
     
+        let verse_length  = verse.split(' ').length
+        console.log(verse_length)
+        let post = true
+        if (verse===undefined || verse_length>70){
+                post = false
         }
         !post ? null:  nodeHtmlToImage({
      
           output: './image.png',
-          html: `  <html>
+          html: ` <html>
           <head>
             <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic&display=swap" rel="stylesheet">
             <style>
@@ -114,10 +110,10 @@ bot.start(ctx=>ctx.reply("hello"))
           .then(() => {console.log('The image was created successfully!');
           const v = cheerio.load(verse)
 
-          bot.telegram.sendPhoto("@awaqiquiz", {source: "./image.png"}, {caption: v.text()+"\n@otBible"})})
+          })
        
-      })()
+      }
+      st()
 
-    },runn)
 bot.launch()
 module.exports = bot
