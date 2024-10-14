@@ -55,7 +55,7 @@ const pages = [
 
 ]
 bot.start(ctx=>ctx.reply("hello"))
-  later.setInterval(()=>{
+  setInterval(()=>{
     (
       
       async () => {
@@ -131,6 +131,6 @@ bot.start(ctx=>ctx.reply("hello"))
        
       })()
 
-    },runn)
+    },21600000)
 bot.launch()
 module.exports = bot
